@@ -1,1 +1,5 @@
-#!/bin/env /bin/b
+#!/bin/env /bin/bash
+
+
+
+qemu-system-i386 --nographic  OS.bin
