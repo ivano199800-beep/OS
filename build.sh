@@ -6,7 +6,7 @@ rm -f *.bin
 rm -f *~
 for src in $(find *.s); do
 	if $src == "layout.s";then
-		rm $src
+		continue
 	fi
 	fasm "$src"
 done
