@@ -1,8 +1,13 @@
+format binary
 org 0x7c00
 jmp start_
 ; Data
-text: db "BOOT TEXT 16BIT" , 0 
+data_section:
+dw code_section - data_section
+text: db "BOOT TEXT 16BIT" , 0xa  , 0xd, 0
+halt_message: db "HALT" , 0xa , 0xd , 0
 ; function (cdecl)16bit
+code_section:
 putc16: ; ret -> char
   push bx
   mov bx , sp
@@ -29,6 +34,8 @@ puts16:
   .end:
   pop bx
   ret
+ldsec:
+  ret
 start_:
   xor ax , ax
   cli 
@@ -38,9 +45,11 @@ start_:
   call puts16
   add sp , 2
 hang_:
-  cli 
+  push halt_message
+  call puts16
+  sub sp , 2
   .loop:
-  hlt 
+  hlt
   jmp .loop
 times 510 - ($-$$) db 0
 dw 0xAA55
