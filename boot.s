@@ -42,15 +42,15 @@ start_:
   mov bp , sp
   mov ds , ax
   mov ss , ax
-  mov cs , ax
   sti
   push text
   call puts16
   add sp , 2
+
+
+
 hang_:
-  push halt_message
   call puts16
-  add sp , 2
   .loop:
   hlt
   jmp .loop

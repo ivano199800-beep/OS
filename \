@@ -1,0 +1,6 @@
+format binary
+org 0x7c00 + 512
+get_symbol: ; pointer to symbol
+	mov bx , sp
+	add bx , 4
+	mov word [bx] , 0x4096
