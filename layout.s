@@ -2,10 +2,6 @@ format binary
 ; bootloader
 file "boot.bin"
 ; bios utilities
-file "util.bin"
-; paddinf
-times 1024 - ($-$$) db 0
-; nesessicary utils 
 file "util32.bin"
 times 2048 - ($-$$) db 0
 file "fsutil.bin"
