@@ -5,7 +5,7 @@ use32
 get_ptr:dd 0
 putc:dd 0
 puts:dd 0
-string:db "32BIT MODE ACTIVATED" , 0
+string:db "32BIT MODE ACTIVATED" , 0x80 , "NEWLINE" , 0
 
 _start:
 	cli

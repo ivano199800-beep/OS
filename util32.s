@@ -6,8 +6,21 @@ dd puts
 dd 0  ; terminate
 _end_header:
 cursor: dw 0, 10     ; cursor[0] = X (0-79), cursor[2] = Y (0-24)
-
 putc:
+    jmp .send
+    .special:
+    push ebx
+    cmp bl , 0x80
+    jne .newline
+    inc eax
+    xor ecx , ecx
+    dec ecx
+    jmp .dend
+    .newline:
+    .dend:
+    pop ebx
+    jmp .skip
+    .send:
     push ebp
     mov ebp, esp
     push ebx
@@ -26,11 +39,12 @@ putc:
     add edx, ecx            ; edx = (Y * 80) + X
     shl edx, 1              ; edx = edx * 2 (each character cell is 2 bytes)
     add edx, 0x000B8000     ; edx now points exactly to the target screen address
-
+    test bl , 0x80
+    jnz .special
     ; 4. Combine character value with white text attribute flag color
     mov bh, 0x0F            ; White font text color on black background
     mov [edx], bx           ; Write both character and color attribute to screen VRAM
-
+    .skip:
     ; 5. Handle Text Mode Cursor Math Increment Tracking
     inc ecx                 ; Move cursor horizontally: X++
     cmp ecx, 80             ; Check if we hit the edge of the line
