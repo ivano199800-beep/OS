@@ -5,6 +5,15 @@ dd putc
 dd puts
 dd 0  ; terminate
 _end_header:
+format_hex:
+  mov eax , [esp + 4]
+  and eax , 0xf
+  add eax , '0'
+  cmp eax , '9'
+  jbe .done
+  add eax , 7
+  .done
+  ret
 cursor: dw 0, 10     ; cursor[0] = X (0-79), cursor[2] = Y (0-24)
 putc:
     jmp .send

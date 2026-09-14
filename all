@@ -1,0 +1,5 @@
+#!/bin/env /bin/bash
+
+./build.sh
+./run.sh
+./clean.sh
