@@ -3,6 +3,7 @@ use32
 org 0x7e00
 dd putc
 dd puts
+dd format_hex
 dd 0  ; terminate
 _end_header:
 format_hex:
@@ -12,7 +13,7 @@ format_hex:
   cmp eax , '9'
   jbe .done
   add eax , 7
-  .done
+  .done:
   ret
 cursor: dw 0, 10     ; cursor[0] = X (0-79), cursor[2] = Y (0-24)
 putc:
@@ -84,7 +85,7 @@ puts:
 	mov al , [ecx]
 	test al , al
 	jz .end
-	and al , 0xff
+	and eax , 0xff
 	push eax
 	call putc
 	add esp , 4

@@ -96,6 +96,8 @@ start_:
   mov eax , cr0 
   or eax , 1
   mov cr0 , eax
+  mov ax , NDS
+  mov ss , ax
   push NDS
   jmp far NCS:0x8c00
 
